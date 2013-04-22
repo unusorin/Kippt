@@ -2,8 +2,8 @@
 /**
  * kippt bootstrap
  */
-require_once 'curl/lib/curl.php';
-require_once 'curl/lib/curl_response.php';
+require_once __DIR__.'/../curl/lib/curl.php';
+require_once __DIR__.'/../curl/lib/curl_response.php';
 
 spl_autoload_register(
     function ($className) {
