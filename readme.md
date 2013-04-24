@@ -2,6 +2,7 @@
 - --
 ### API Client for Kippt.com written in PHP
 
+![Kippt](https://si0.twimg.com/profile_images/2275864328/2hnkee9et7cp8bnz12yr.png)
 
 
 ##Installation
