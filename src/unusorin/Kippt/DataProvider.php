@@ -58,10 +58,10 @@ class DataProvider
         }
         $response       = $this->curl->request(strtoupper($type), 'https://kippt.com' . $library, $payload);
         $response->body = json_decode($response->body);
-        switch ($response->headers['Status-Code']) {
-            case '200':
-            case
-                '201':
+        switch (intval($response->headers['Status-Code'])) {
+            case 200:
+            case 201:
+            case 204:
                 return $response;
             default:
                 if (isset($response->body->message)) {

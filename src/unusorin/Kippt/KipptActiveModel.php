@@ -79,4 +79,13 @@ class KipptActiveModel extends KipptModel
             $this->__construct($response->body);
         }
     }
+
+    public function delete(){
+        if(!$this->canAdd){
+            Kippt::$dataProvider->makeRequest(static::$objectUrl.$this->id.'/','delete');
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
