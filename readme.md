@@ -21,7 +21,19 @@
 * Get all clips from list
 
 		$clipsArray = \unusorin\Kippt\Models\Clip::getAll(array('list'=>'/api/lists/<list_id>/'));
-		
+
+* Add a new list
+
+        $clip = new \unusorin\Kippt\Models\Lists();
+        $clip->title = 'Some list title';
+        $clip->save();
+
+* Modify existing list
+
+        $clip = \unusorin\Kippt\Models\Clip::get(<clip_id>);
+        $clip->title = 'Some new title';
+        $clip->save();
+
 * Available models:
 	* Clip
 	* Comment

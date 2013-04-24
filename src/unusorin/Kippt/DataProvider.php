@@ -17,12 +17,10 @@ class DataProvider
      * @var \Curl
      */
     protected $curl;
-
     /**
      * @var string
      */
     protected $username;
-
     /**
      * @var string
      */
@@ -47,18 +45,30 @@ class DataProvider
 
     /**
      * @param string $library
-     * @return \CurlResponse
+     * @param string $type
+     * @param array|string $payload
+     * @return mixed
      * @throws Exceptions\KipptException
+     * @throws \InvalidArgumentException
      */
-    public function makeRequest($library)
+    public function makeRequest($library, $type = 'get', $payload = array())
     {
-        $response       = $this->curl->get('https://kippt.com' . $library);
+        if (!in_array(strtolower($type), array('get', 'post', 'put', 'delete'))) {
+            throw new \InvalidArgumentException('Invalid request type');
+        }
+        $response       = $this->curl->request(strtoupper($type), 'https://kippt.com' . $library, $payload);
         $response->body = json_decode($response->body);
         switch ($response->headers['Status-Code']) {
             case '200':
+            case
+                '201':
                 return $response;
             default:
-                throw new KipptException($response->body->message);
+                if (isset($response->body->message)) {
+                    throw new KipptException($response->body->message);
+                } else {
+                    throw new KipptException(json_encode($response->body));
+                }
         }
     }
 

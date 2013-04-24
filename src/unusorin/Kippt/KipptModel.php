@@ -9,20 +9,29 @@ namespace unusorin\Kippt;
  * Class KipptModel
  * @package unusorin\Kippt
  */
-class KipptModel extends \stdClass{
+class KipptModel extends \stdClass
+{
 
     /**
      * @var string
      */
     protected static $objectUrl;
+    protected static $writable = array();
+
+
+    protected $canAdd = true;
 
     /**
-     * @param string $data
+     * @param array $data
      */
-    public function __construct($data)
+    public function __construct($data = array())
     {
+        if(!empty($data)){
+            $this->canAdd=false;
+        }
         foreach ($data as $key => $value) {
             $this->$key = $value;
         }
     }
+
 }

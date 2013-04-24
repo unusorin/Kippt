@@ -25,4 +25,13 @@ class User extends KipptActiveModel
     {
         return self::get('self');
     }
+
+    /**
+     * post/put are disabled for this model
+     * @return bool
+     */
+    public function save()
+    {
+        return false;
+    }
 }

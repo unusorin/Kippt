@@ -11,7 +11,16 @@ use unusorin\Kippt\KipptActiveModel;
  * Class Lists
  * @package unusorin\Kippt\Models
  */
-class Lists extends KipptActiveModel{
+class Lists extends KipptActiveModel
+{
+    /**
+     * @var array
+     */
+    protected static $writable = array('title', 'description');
+    /**
+     * @var string
+     */
+    protected static $objectUrl = '/api/lists/';
     public $app_url;
     public $rss_url;
     public $updated;
@@ -21,7 +30,7 @@ class Lists extends KipptActiveModel{
     public $collaborators;
     public $slug;
     /**
-     * @var User
+     * @var User|array
      */
     public $user;
     public $id;
@@ -29,15 +38,13 @@ class Lists extends KipptActiveModel{
     public $resource_uri;
 
     /**
-     * @var string
+     * @param array $data
      */
-    protected static $objectUrl = '/api/lists/';
-
-    /**
-     * @param string $data
-     */
-    public function __construct($data){
+    public function __construct($data = array())
+    {
         parent::__construct($data);
-        $this->user=new User($this->user);
+        if (!empty($data)) {
+            $this->user = new User($this->user);
+        }
     }
 }

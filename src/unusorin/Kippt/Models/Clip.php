@@ -15,6 +15,14 @@ use unusorin\Kippt\KipptActiveModel;
 class Clip extends KipptActiveModel
 {
 
+    /**
+     * @var array
+     */
+    protected static $writable = array('url', 'title', 'list', 'via', 'notes');
+    /**
+     * @var string
+     */
+    protected static $objectUrl = '/api/clips/';
 
     public $via;
     public $saves;
@@ -45,11 +53,6 @@ class Clip extends KipptActiveModel
     public $resource_uri;
 
     /**
-     * @var string
-     */
-    protected static $objectUrl = '/api/clips/';
-
-    /**
      * @param string $data
      */
     public function __construct($data)
@@ -63,10 +66,10 @@ class Clip extends KipptActiveModel
         }
         $this->comments = $comments;
         $this->user     = new User($this->user);
-        if(is_string($this->list)){
+        if (is_string($this->list)) {
             $this->list = new Lists(Kippt::$dataProvider->makeRequest($this->list)->body);
-        }else{
-            $this->list     = new Lists($this->list);
+        } else {
+            $this->list = new Lists($this->list);
         }
     }
 

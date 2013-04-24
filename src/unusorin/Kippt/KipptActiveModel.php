@@ -52,4 +52,31 @@ class KipptActiveModel extends KipptModel
         $class    = get_called_class();
         return new $class($response->body);
     }
+
+    /**
+     * save current object
+     */
+    public function save()
+    {
+        $payload = array();
+
+        foreach (static::$writable as $field) {
+            if (strlen($this->{$field}) > 0) {
+                $payload[$field] = $this->{$field};
+            }
+        }
+
+        if ($this->canAdd) {
+            $response = Kippt::$dataProvider->makeRequest(static::$objectUrl, 'post', json_encode($payload));
+            $this->__construct($response->body);
+        } else {
+            echo static::$objectUrl . $this->id;
+            $response = Kippt::$dataProvider->makeRequest(
+                static::$objectUrl . $this->id . '/',
+                'PUT',
+                json_encode($payload)
+            );
+            $this->__construct($response->body);
+        }
+    }
 }
