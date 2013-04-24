@@ -34,6 +34,11 @@
         $clip->title = 'Some new title';
         $clip->save();
 
+* Delete existing list
+
+        $clip = \unusorin\Kippt\Models\Clip::get(<clip_id>);
+        $clip->delete();
+
 * Available models:
 	* Clip
 	* Comment
